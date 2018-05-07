@@ -1,0 +1,120 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,top=2.0cm,right=1.5cm,bottom=2.0cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,bm}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{stackrel}
+
+\title{}
+\author{}
+
+\begin{document}
+
+\maketitle 
+
+\thispagestyle{empty}
+\begin{center}
+\section*{Introducción a  la computación cuántica y fundamentos de lenguajes de programación} 
+\subsection*{Ejercicios resueltos de la práctica 1}
+
+\end{center}
+
+\newpage{\pagestyle{empty}\cleardoublepage}
+
+\newpage
+
+
+\section{Ejercicios}
+
+\subsection*{Ejercicio 10}
+Consideramos el operador de medición $\{ M_{0}, M_{1}\}$, donde $M_{0}=\ket{+}\bra{+}$, $M_{1}=\ket{-}\bra{-}.$
+
+\begin{enumerate}[label=\alph*)]
+\item $\Psi = \frac{1}{3}\ket{0} + \frac{\sqrt{8}}{3}\ket{1}$. 
+
+  \begin{itemize}
+  \item $p(0) = \braket{\Psi | M_0^{\dag} M_0 | \Psi} \stackrel{(1)}{=} 
+    \braket{\Psi | M_0 | \Psi} = \frac{1}{9}\cdot\frac{1}{2} + \frac{\sqrt{8}}{9}\cdot\frac{1}{2} + \frac{\sqrt{8}}{9}\cdot\frac{1}{2}
+    + \frac{8}{9}\cdot\frac{1}{2} = \frac{\sqrt{8}}{9} + \frac{1}{2}$.
+  \item $p(1) = \braket{\Psi | M_1^{\dag} M_1 | \Psi} \stackrel{(2)}{=} 
+    \braket{\Psi | M_1 | \Psi} = \frac{1}{9}\cdot\frac{1}{2} - \frac{\sqrt{8}}{9}\cdot\frac{1}{2} - \frac{\sqrt{8}}{9}\cdot\frac{1}{2}
+    + \frac{8}{9}\cdot\frac{1}{2} = - \frac{\sqrt{8}}{9} + \frac{1}{2}$.
+  \end{itemize}
+
+Si se aplica el proyector $M_0$, el sistema queda en el siguiente estado:
+
+$\frac{M_0 \ket{\Psi}}{\sqrt{p(0)}} = \frac{1}{\sqrt{p(0)}} \Big( \braket{+|+}\Big( \frac{1}{3}\ket{0} + \frac{\sqrt{8}}{3}\ket{1} \Big) \Big) =
+\frac{1}{\sqrt{p(0)}} \Big( \Big( \frac{1}{3\sqrt{2}}\ket{+} + \frac{\sqrt{8}}{3\sqrt{2}}\ket{+} \Big) \Big) =
+\frac{1}{\sqrt{p(0)}} \Big( \frac{1}{6} + \frac{\sqrt{8}}{6} \Big) \Big( \ket{0} + \ket{1} \Big).$
+
+Mientras que, si se aplica el proyector $M_1$, el sistema queda así:
+
+$\frac{M_1 \ket{\Psi}}{\sqrt{p(1)}} = \frac{1}{\sqrt{p(1)}} \Big( \braket{-|-}\Big( \frac{1}{3}\ket{0} + \frac{\sqrt{8}}{3}\ket{1} \Big) \Big) =
+\frac{1}{\sqrt{p(1)}} \Big( \Big( \frac{1}{3\sqrt{2}}\ket{-} - \frac{\sqrt{8}}{3\sqrt{2}}\ket{-} \Big) \Big) =
+\frac{1}{\sqrt{p(1)}} \Big( \frac{1}{6} - \frac{\sqrt{8}}{6} \Big) \Big( \ket{0} - \ket{1} \Big).$
+
+\item $\Psi = \frac{1}{\sqrt{2}} \Big( \ket{0} + \ket{1} \Big)$. 
+
+  \begin{itemize}
+  \item $p(0) = \braket{\Psi | M_0^{\dag} M_0 | \Psi} \stackrel{(1)}{=} 
+    \braket{\Psi | M_0 | \Psi} = \frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2} +
+    \frac{1}{2}\cdot\frac{1}{2} = 1.$
+  \item $p(1) = \braket{\Psi | M_1^{\dag} M_1 | \Psi} \stackrel{(2)}{=} 
+    \braket{\Psi | M_1 | \Psi} = \frac{1}{2}\cdot\frac{1}{2} - \frac{1}{2}\cdot\frac{1}{2} - \frac{1}{2}\cdot\frac{1}{2} +
+    \frac{1}{2}\cdot\frac{1}{2} = 0.$
+  \end{itemize}
+  Solo se aplica el proyector $M_0$, pues $p(0) = 1$. El sistema queda en el siguiente estado:
+
+  $\frac{M_0 \ket{\Psi}}{\sqrt{p(0)}} = M_0 \ket{\Psi} = \braket{+|+} \frac{1}{\sqrt{2}}\Big(\ket{0} + \ket{1}\Big) = 
+  \frac{1}{2} \ket{+} + \frac{1}{2} \ket{+} = \ket{+}.$
+
+\item $\Psi = \ket{-}$
+
+  \begin{itemize}
+  \item $p(0) = \braket{- | M_0^{\dag} M_0 | -} \stackrel{(1)}{=} 
+    \Big(\frac{1}{\sqrt{2}}\bra{0} - \frac{1}{\sqrt{2}}\bra{1} \Big) M_0  \Big(\frac{1}{\sqrt{2}}\ket{0} - \frac{1}{\sqrt{2}}\ket{1} \Big) =
+    \frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2} +
+    \frac{1}{2}\cdot\frac{1}{2} = 1.$
+  \item $p(1) = 0$
+  \end{itemize}
+
+  Solo se aplica el proyector $M_0$, pues $p(0) = 1$. El sistema queda en el siguiente estado.
+  
+  $\frac{M_0 \ket{\Psi}}{\sqrt{p(0)}} = M_0 \ket{-} = \braket{+|+}\ket{-} = \ket{+} \Big(\frac{1}{\sqrt{2}}\bra{0} + 
+  \frac{1}{\sqrt{2}}\bra{1}\Big) \Big(\frac{1}{\sqrt{2}}\ket{0} - \frac{1}{\sqrt{2}}\ket{1}\Big) = 
+  \ket{+} \Big( \frac{1}{2} - \frac{1}{2} \Big) = 0 \ket{+}.$
+  
+\end{enumerate}
+
+Observaciones:
+
+\begin{enumerate}[label=(\arabic*)]
+\item $M_0$ hermitiana, y $M_0^2 = M_0$
+\item $M_1$ hermitiana, y $M_1^2 = M_1$
+\end{enumerate}
+
+\subsection*{Ejercicio 13}
+
+Sea la base $B = \{ \ket{+}, \ket{-}\}$. Un qubit $\Psi = \alpha\ket{+} + \beta \ket{-}$ está en superposición en la base $B$, si
+$\alpha \neq 0$, y $\beta \neq 0$. 
+
+\begin{enumerate}[label=\alph*)]
+\item $\ket{0} = \frac{1}{\sqrt{2}}\Big( \ket{+} - \ket{-}\Big)$, está en superposición en la base $B$.
+\item $\ket{+}$, no está en superposición en la base $B$.
+\item $\frac{1}{\sqrt{2}}\Big( \ket{+} + \ket{-} \Big)$, está en superposición en $B$.
+\item $\frac{1}{\sqrt{2}}\Big( \ket{+} - \ket{-} \Big)$, está en superposición en $B$.
+\item $\frac{\sqrt{3}}{2}\ket{+} + \frac{1}{\sqrt{2}}\ket{-}$, está en superposición en $B$.
+\item $\frac{1}{\sqrt{2}}\ket{0} - \frac{1}{\sqrt{2}}\ket{-} = \ket{-}$, no está en superposición en $B$.
+\end{enumerate}
+
+
+
+\end{document}
