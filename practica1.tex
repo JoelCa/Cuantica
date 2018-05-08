@@ -12,6 +12,8 @@
 \usepackage{amsthm}
 \usepackage{braket}
 \usepackage{stackrel}
+\usepackage{qcircuit}
+\usepackage{mathtools}
 
 \title{}
 \author{}
@@ -115,6 +117,22 @@ $\alpha \neq 0$, y $\beta \neq 0$.
 \item $\frac{1}{\sqrt{2}}\ket{0} - \frac{1}{\sqrt{2}}\ket{-} = \ket{-}$, no está en superposición en $B$.
 \end{enumerate}
 
+\subsection*{Ejercicio 17}
 
+Circuito:
+
+\vspace{0.5cm}
+
+\Qcircuit @C=1em @R=1em {
+\lstick{\ket{0}} & \gate{H} & \ctrl{1} & \qw & \qw \\
+\lstick{\ket{0}} & \qw  & \targ & \ctrl{1} & \qw & \rstick{\frac{1}{\sqrt{2}}\ket{000} + \frac{1}{\sqrt{2}}\ket{111}}\\
+\lstick{\ket{0}} & \qw  & \qw & \targ &  \qw
+}
+
+\vspace{0.5cm}
+
+$\ket{000} \xrightarrow{H \otimes I \otimes I} \frac{1}{\sqrt{2}}\ket{000} + \frac{1}{\sqrt{2}}\ket{100}
+\xrightarrow{CNOT \otimes I} \frac{1}{\sqrt{2}}\ket{000} + \frac{1}{\sqrt{2}}\ket{110}
+\xrightarrow{I \otimes CNOT} \frac{1}{\sqrt{2}}\ket{000} + \frac{1}{\sqrt{2}}\ket{111}$
 
 \end{document}
