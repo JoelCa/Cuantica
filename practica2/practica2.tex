@@ -1,0 +1,98 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,top=2.0cm,right=1.5cm,bottom=2.0cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,bm}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{stackrel}
+\usepackage{qcircuit}
+\usepackage{mathtools}
+
+\title{}
+\author{}
+
+\newtheorem*{theorem}{Teorema}
+\newtheorem{theorem2}{Teorema2}
+
+\newtheorem{lemma}[theorem2]{Lema}
+
+\begin{document}
+
+\maketitle 
+
+\thispagestyle{empty}
+\begin{center}
+\section*{Introducción a  la computación cuántica y fundamentos de lenguajes de programación} 
+\subsection*{Ejercicios resueltos de la práctica 2}
+\subsubsection*{Joel Catacora}
+
+\end{center}
+
+\newpage{\pagestyle{empty}\cleardoublepage}
+
+\newpage
+
+\section*
+{Ejercicios}
+
+\subsection*{Ejercicio 10}
+
+\begin{theorem}
+Sea $\rho$ un operador de densidad. Luego, $tr(p^2) \leq 1$.
+
+Además, $tr(\rho^2) = 1 \Leftrightarrow \rho$ está en un estado puro.
+\end{theorem}
+
+\begin{proof}
+Veamos el caso donde $\rho$ está en un estado puro.
+
+Luego, $tr(\rho^2) = tr(\ket{\Psi}\braket{\Psi | \Psi}\bra{\Psi}) = tr(\ket{\Psi}\bra{\Psi}) = 1$.
+
+Ahora, vemos el caso general.
+
+\begin{align*}
+  \rho^2 
+  &= \big( \sum_{i} p_i \ket{\Psi_i}\bra{\Psi_i} \big) \big( \sum_{j} p_j \ket{\Psi_j}\bra{\Psi_j} \big) 
+  \\ &=\sum_{i, j} p_i p_j\ket{\Psi_i}\braket{\Psi_i | \Psi_j}\bra{\Psi_j}
+  \\ &= \sum_{i} p_i^2\ket{\Psi_i}\bra{\Psi_i} + 
+       \sum_{i, j, i \neq j} p_i p_j\ket{\Psi_i}\braket{\Psi_i | \Psi_j}\bra{\Psi_j}
+\end{align*}
+
+
+Entonces, 
+
+\begin{align*}
+  tr(\rho^2) 
+  &= \sum_{i} p_i^2 + 
+    \sum_{i, j, i \neq j} p_i p_j|\braket{\Psi_i | \Psi_j}|^2
+  \\ &\le \sum_{i} p_i^2 + 
+       \sum_{i, j, i \neq j} p_i p_j               \tag*{Lema 1}
+  \\ &= \sum_{i,j} p_ip_j 
+  \\ &= \Big( \sum_{i}p_i \Big)^2 
+  \\ &= 1 
+\end{align*}
+
+\end{proof}
+
+\begin{lemma}
+Sean $\Psi, \Phi$ qubits. Luego, $|\braket{\Psi | \Phi}|^2 \leq 1$.
+\end{lemma}
+
+\begin{proof}
+\begin{align*}
+  |\braket{\Psi | \Phi}|^2
+  &\le \braket{\Psi | \Psi} \braket{\Phi | \Phi}   \tag*{Desigualdad de Cauchy-Schwarz}
+  \\ &= 1
+\end{align*}
+
+\end{proof}
+
+
+\end{document}
