@@ -94,5 +94,61 @@ Sean $\Psi, \Phi$ qubits. Luego, $|\braket{\Psi | \Phi}|^2 \leq 1$.
 
 \end{proof}
 
+\subsection*{Descomposición de Schmidt}
+
+Calculamos la descomposición en valores singulares de la siguiente matriz.
+
+$
+A = 
+\begin{pmatrix}
+1 & 1\\ 
+0 & 1
+\end{pmatrix}
+$
+
+$
+U =
+\begin{pmatrix}
+\frac{1+\frac{1}{2}\left ( -1 + \sqrt{5} \right )}{\sqrt{1 + \left ( 1 +\frac{1}{2} 
+\left ( -1 + \sqrt{5} \right ) \right )^2}} 
+
+& \frac{1+\frac{1}{2}\left ( -1 - \sqrt{5} \right )}{\sqrt{1 + \left ( 1 +\frac{1}{2} 
+\left ( -1 - \sqrt{5} \right ) \right )^2}} 
+
+\\ 
+
+\frac{1}{\sqrt{1 + \left ( 1 +\frac{1}{2} 
+\left ( -1 + \sqrt{5} \right ) \right )^2}} 
+ 
+& \frac{1}{\sqrt{1 + \left ( 1 +\frac{1}{2} 
+\left ( -1 - \sqrt{5} \right ) \right )^2}} 
+\end{pmatrix}
+$
+
+$
+\Sigma =
+\begin{pmatrix}
+\sqrt{\frac{1}{2}\left ( 3 + \sqrt{5} \right )}
+& 0
+\\ 
+0
+& \sqrt{\frac{1}{2}\left ( 3 - \sqrt{5} \right )}
+\end{pmatrix}
+$
+
+$V = 
+\begin{pmatrix}
+\frac{-1 + \sqrt{5}}{2\sqrt{1 + \frac{1}{4}\left ( -1 + \sqrt{5}\right )^2}} 
+
+& \frac{-1 - \sqrt{5}}{2\sqrt{1 + \frac{1}{4}\left ( -1 - \sqrt{5}\right )^2}} 
+
+\\ 
+
+\frac{1}{\sqrt{1 + \frac{1}{4}\left ( -1 + \sqrt{5}\right )^2}} 
+
+& \frac{1}{\sqrt{1 + \frac{1}{4}\left ( -1 - \sqrt{5}\right )^2}} 
+\end{pmatrix}$
+
+Luego, $A = U \Sigma V^{\dag}$
 
 \end{document}
