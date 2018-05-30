@@ -96,15 +96,22 @@ Sean $\Psi, \Phi$ qubits. Luego, $|\braket{\Psi | \Phi}|^2 \leq 1$.
 
 \subsection*{Descomposición de Schmidt}
 
-Calculamos la descomposición en valores singulares de la siguiente matriz.
+Vamos a calcular la descomposición de Schmidt del siquiente qubit.
 
-$
-A = 
+$\ket{\Psi} = \frac{\ket{00} + \ket{01} + \ket{11}}{\sqrt{3}}$
+
+Para ello, reescribimos el estado utilizando una matriz.
+
+Tenemos que, $\ket{\Psi} = \sum_{i,j} A_{i,j} \ket{ij}$, donde
+
+$A = 
 \begin{pmatrix}
 1 & 1\\ 
 0 & 1
 \end{pmatrix}
 $
+
+Ahora, vamos a calcular la descomposición en valores singulares de $A$.
 
 $
 U =
@@ -126,7 +133,7 @@ U =
 $
 
 $
-\Sigma =
+D =
 \begin{pmatrix}
 \sqrt{\frac{1}{2}\left ( 3 + \sqrt{5} \right )}
 & 0
@@ -149,6 +156,10 @@ $V =
 & \frac{1}{\sqrt{1 + \frac{1}{4}\left ( -1 - \sqrt{5}\right )^2}} 
 \end{pmatrix}$
 
-Luego, $A = U \Sigma V^{\dag}$
+Luego, $A = U D V^{\dag}$
+
+Entonces, $\ket{\Psi} = \sum_{i,j,k} U_{j,i} D_{i,i} V^{\dag}_{i,k}\ket{ij}$.
+
+Tomamos, $\ket{i_A} = \sum_{j} U_{j,i}\ket{j}$
 
 \end{document}
