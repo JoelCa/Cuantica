@@ -51,72 +51,214 @@ Además, $tr(\rho^2) = 1 \Leftrightarrow \rho$ está en un estado puro.
 \end{theorem}
 
 \begin{proof}
-Veamos el caso donde $\rho$ está en un estado puro.
 
-Luego, $tr(\rho^2) = tr(\ket{\Psi}\braket{\Psi | \Psi}\bra{\Psi}) = tr(\ket{\Psi}\bra{\Psi}) = 1$.
+Probemos que $tr(p^2) \leq 1$.
 
-Ahora, vemos el caso general.
 
 \begin{align*}
   \rho^2 
   &= \big( \sum_{i} p_i \ket{\Psi_i}\bra{\Psi_i} \big) \big( \sum_{j} p_j \ket{\Psi_j}\bra{\Psi_j} \big) 
   \\ &=\sum_{i, j} p_i p_j\ket{\Psi_i}\braket{\Psi_i | \Psi_j}\bra{\Psi_j}
-  \\ &= \sum_{i} p_i^2\ket{\Psi_i}\bra{\Psi_i} + 
-       \sum_{i, j, i \neq j} p_i p_j\ket{\Psi_i}\braket{\Psi_i | \Psi_j}\bra{\Psi_j}
-\end{align*}
+ \end{align*}
 
 
 Entonces, 
 
 \begin{align*}
   tr(\rho^2) 
-  &= \sum_{i} p_i^2 + 
-    \sum_{i, j, i \neq j} p_i p_j|\braket{\Psi_i | \Psi_j}|^2
-  \\ &\le \sum_{i} p_i^2 + 
-       \sum_{i, j, i \neq j} p_i p_j               \tag*{Lema 1}
+  &= \sum_{i, j} p_i p_j|\braket{\Psi_i | \Psi_j}|^2
+  \\ &\le \sum_{i, j} p_i p_j \braket{\Psi_i | \Psi_i} \braket{\Psi_j | \Psi_j}
+       \tag*{Lema 1}
   \\ &= \sum_{i,j} p_ip_j 
   \\ &= \Big( \sum_{i}p_i \Big)^2 
   \\ &= 1 
 \end{align*}
 
-\end{proof}
+Luego, $tr(\rho^2) \le 1$.
 
-\begin{lemma}
-Sean $\Psi, \Phi$ qubits. Luego, $|\braket{\Psi | \Phi}|^2 \leq 1$.
-\end{lemma}
+Ahora, veamos que si el sistema está en un estado puro, entonces $tr(\rho^2) = 1$.
 
-\begin{proof}
+Tenemos que, $tr(\rho^2) = tr(\ket{\Psi}\braket{\Psi | \Psi}\bra{\Psi}) = tr(\ket{\Psi}\bra{\Psi}) = 1$.
+
+Por ultimo, tenemos que probar que si $tr(\rho^2) = 1$, entonces $\rho$ está en un estado puro.
+
 \begin{align*}
-  |\braket{\Psi | \Phi}|^2
-  &\le \braket{\Psi | \Psi} \braket{\Phi | \Phi}   \tag*{Desigualdad de Cauchy-Schwarz}
-  \\ &= 1
+  & 1 = tr(\rho^2) = \sum_{i, j} p_i p_j|\braket{\Psi_i | \Psi_j}|^2 
+  \le \sum_{i, j} p_i p_j \braket{\Psi_i | \Psi_i} \braket{\Psi_j | \Psi_j} = 1.
+  \\ &\Rightarrow 
+       \sum_{i, j} p_i p_j|\braket{\Psi_i | \Psi_j}|^2 = \sum_{i, j} p_i p_j \braket{\Psi_i | \Psi_i} \braket{\Psi_j | \Psi_j}
+  \\ &\Rightarrow |\braket{\Psi_i | \Psi_j}|^2 = \braket{\Psi_i | \Psi_i} \braket{\Psi_j | \Psi_j} \tag*{Lema 1}
+  \\ &\Rightarrow \forall i, j, \exists \alpha_{ij}, \ket{ \Psi_{i}} = \alpha_{ij} \ket{\Psi_{j}}
+  \\ &\Rightarrow \forall i, \exists \beta_{i}, \ket{ \Psi_{i}} = \beta_{i} \ket{\Psi_{0}}, \; | \beta_{i}|^2 = 1
 \end{align*}
 
+Entonces, tenemos un conjunto de estados puros de la forma, $\{ p_{i}, \beta_{i} \ket{\Psi_{0}}\}$, donde $| \beta_{i}|^2 = 1$.
+
+Veamos que, $\rho$ está en un estado puro.
+
+\begin{align*}
+  \rho 
+  &= \sum_{i} p_i |\beta_i|^2 \ket{\Psi_0} \bra{\Psi_0}
+  \\ &=  \sum_{i} p_i \ket{\Psi_0} \bra{\Psi_0}
+  \\ &= \ket{\Psi_0} \bra{\Psi_0} \sum_{i} p_i
+  \\ &= \ket{\Psi_0} \bra{\Psi_0}
+\end{align*}
+
+Por lo tanto, $\rho$ está en un estado puro.
+
 \end{proof}
+
+
+
+\begin{lemma}
+(Desigualdad de Cauchy-Schwarz).
+Sean $\ket{\Psi}, \ket{\Phi}$ qubits. Luego, $|\braket{\Psi | \Phi}|^2 \leq \braket{\Psi | \Psi} \braket{\Phi | \Phi}$.
+Mientras que se da la igualdad si y solo si $\ket{\Psi}$ y $\ket{\Phi}$ son linealmente dependientes. 
+\end{lemma}
+
+\subsection*{Ejercicio 14}
+
+\begin{enumerate}[label=\alph*)]
+
+\item Calcularemos la matriz de densidad $\rho_1$ del conjunto de estados puros $\{ (\frac{1}{4}, \ket{0}), (\frac{3}{4}, \ket{+}) \}$.
+
+\begin{align*}
+  \rho_1 
+  &= \frac{1}{4} \ket{0}\bra{0} + \frac{3}{4} \ket{+}\bra{+} 
+  \\ &=  \frac{1}{4} \ket{0}\bra{0} + \frac{3}{8} \big( \ket{0}\bra{0} + \ket{0}\bra{1} + \ket{1}\bra{0} + \ket{1}\bra{1} \big)
+  \\ &= \frac{5}{8} \ket{0}\bra{0} + \frac{3}{8}\ket{0}\bra{1} + \frac{3}{8}\ket{1}\bra{0} + \frac{3}{8}\ket{1}\bra{1}
+  \\ &= \bigl(\begin{smallmatrix}
+\frac{5}{8} & \frac{3}{8}\\ 
+\frac{3}{8} & \frac{3}{8}
+\end{smallmatrix}\bigr)
+\end{align*}
+
+Ahora, calcularemos la matriz de densidad $\rho_2$ del conjunto de estados puros $\{ (\frac{3}{4}, \ket{1}), (\frac{1}{4}, \ket{-}) \}$.
+
+\begin{align*}
+  \rho_2 
+  &= \frac{3}{4} \ket{1}\bra{1} + \frac{1}{8} \big( \ket{0}\bra{0} + \ket{0}\bra{1} + \ket{1}\bra{0} + \ket{1}\bra{1} \big)
+  \\ &= \frac{1}{8} \ket{0}\bra{0} + \frac{1}{8}\ket{0}\bra{1} + \frac{1}{8}\ket{1}\bra{0} + \frac{7}{8}\ket{1}\bra{1}
+  \\ &= \bigl(\begin{smallmatrix}
+\frac{1}{8} & \frac{1}{8}\\ 
+\frac{1}{8} & \frac{7}{8}
+\end{smallmatrix}\bigr)
+\end{align*}
+
+Calculemos la matriz de densidad $\rho$ del sistema compuesto por los sistemas anteriores.
+
+\begin{align*}
+  \rho 
+  &= \rho_1 \otimes \rho_2  
+  \\ &= \frac{5}{64} \ket{00}\bra{00} + \frac{5}{64} \ket{00}\bra{01} + \frac{5}{64}\ket{01}\bra{00} + \frac{35}{64} \ket{01}\bra{01}
+  \\ & + \frac{3}{64} \ket{00}\bra{10} + \frac{3}{64} \ket{00}\bra{11} + \frac{3}{64} \ket{01}\bra{10} + \frac{21}{64} \ket{01}\bra{11}
+  \\ & + \frac{3}{64} \ket{10}\bra{00} + \frac{3}{64} \ket{10}\bra{01} + \frac{3}{64} \ket{11}\bra{00} + \frac{21}{64} \ket{11}\bra{01}
+  \\ & + \frac{3}{64} \ket{10}\bra{10} + \frac{3}{64} \ket{10}\bra{11} + \frac{3}{64} \ket{11}\bra{10} + \frac{21}{64} \ket{11}\bra{11}
+  \\ &= 
+\begin{pmatrix}
+\frac{5}{64} & \frac{5}{64} & \frac{3}{64} & \frac{3}{64}\\ 
+\frac{5}{64} & \frac{35}{64} & \frac{3}{64} & \frac{21}{64}\\ 
+ \frac{3}{64}& \frac{3}{64} & \frac{3}{64} & \frac{3}{64}\\ 
+\frac{3}{64} & \frac{21}{64} & \frac{3}{64} & \frac{21}{64}
+\end{pmatrix}
+\end{align*}
+
+\item Consideremos la medición proyectiva $\{ P_0, P_1, P_2, P_3 \}$, donde $P_0 = \ket{00}\bra{00}$, $P_1=\ket{11}\bra{11}$, 
+$P_2 = \ket{01}\bra{01}$, $P_3 = \ket{01}\bra{10}$.
+
+\begin{itemize}
+\item Caso 0.
+  \begin{align*}
+    p(0)
+    &= tr( P_0^{\dag} P_0 \rho )
+    \\ &=  tr( \ket{00}\bra{00} \rho )
+    \\ &= tr \Big( \frac{5}{64}\ket{00}\bra{00} + \frac{5}{64} \ket{00}\bra{01} + \frac{3}{64} \ket{00}\bra{10} + 
+         \frac{3}{64}\ket{00}\bra{11} \Big)
+    \\ &= \frac{5}{64} tr (\ket{00}\bra{00}) + \frac{5}{64} tr(\ket{00}\bra{01}) + \frac{3}{64} tr(\ket{00}\bra{10}) +
+         \frac{3}{64} tr(\ket{00}\bra{11})
+    \\ &= \frac{5}{64}
+  \end{align*}
+
+  El estado del sistema luego de la medición es el siguiente.
+
+  $\frac{P_0 \rho P_{0}^{\dag}}{p(0)} = \frac{\frac{5}{64} \ket{00}\bra{00}}{\frac{5}{64}} = \ket{00}\bra{00}$
+
+\item Caso 1.
+
+  \begin{align*}
+    p(1)
+    &= tr( P_1^{\dag} P_1 \rho )
+    \\ &=  tr( \ket{11}\bra{11} \rho )
+    \\ &= tr \Big( \frac{3}{64}\ket{11}\bra{00} + \frac{21}{64} \ket{11}\bra{01} + \frac{3}{64} \ket{11}\bra{10} + 
+         \frac{21}{64}\ket{11}\bra{11} \Big)
+    \\ &= \frac{21}{64}
+  \end{align*}
+
+  El estado del sistema luego de la medición es el siguiente.
+
+  $\frac{P_1 \rho P_{1}^{\dag}}{p(1)} = \frac{\frac{21}{64} \ket{11}\bra{11}}{\frac{21}{64}} = \ket{11}\bra{11}$
+  
+\item Caso 2.
+
+  \begin{align*}
+    p(2)
+    &= tr( P_2^{\dag} P_2 \rho )
+    \\ &=  tr( \ket{01}\bra{01} \rho )
+    \\ &= tr \Big( \frac{5}{64}\ket{01}\bra{00} + \frac{35}{64} \ket{01}\bra{01} + \frac{3}{64} \ket{01}\bra{10} + 
+         \frac{21}{64}\ket{01}\bra{11} \Big)
+    \\ &= \frac{35}{64}
+  \end{align*}
+
+  El estado del sistema luego de la medición es el siguiente.
+
+  $\frac{P_2 \rho P_{2}^{\dag}}{p(2)} = \frac{\frac{35}{64} \ket{01}\bra{01}}{\frac{35}{64}} = \ket{01}\bra{01}$
+
+\item Caso 3.
+
+  \begin{align*}
+    p(3)
+    &= tr( P_3^{\dag} P_3 \rho )
+    \\ &=  tr( \ket{10}\bra{10} \rho )
+    \\ &= tr \Big( \frac{3}{64}\ket{10}\bra{00} + \frac{3}{64} \ket{10}\bra{01} + \frac{3}{64} \ket{10}\bra{10} + 
+         \frac{3}{64}\ket{10}\bra{11} \Big)
+    \\ &= \frac{3}{64}
+  \end{align*}
+
+  Luego, el estado del sistema luego de la medición es el siguiente.
+
+  $\frac{P_3 \rho P_{3}^{\dag}}{p(3)} = \frac{\frac{3}{64} \ket{10}\bra{10}}{\frac{3}{64}} = \ket{10}\bra{10}$
+
+\end{itemize}
+
+\end{enumerate}
 
 \subsection*{Descomposición de Schmidt}
 
-Calculamos la descomposición en valores singulares de la siguiente matriz.
+Vamos a calcular la descomposición de Schmidt del siquiente qubit.
 
-$
-A = 
+$\ket{\Psi} = \frac{\ket{00} + \ket{01} + \ket{11}}{\sqrt{3}}$
+
+Para ello, reescribimos el estado utilizando una matriz.
+
+Tenemos que, $\ket{\Psi} = \sum_{i,j} A_{i,j} \ket{ij}$, donde
+
+$A = 
 \begin{pmatrix}
 1 & 1\\ 
 0 & 1
 \end{pmatrix}
 $
 
+Ahora, vamos a calcular la descomposición en valores singulares de $A$.
+
 $
 U =
 \begin{pmatrix}
 \frac{1+\frac{1}{2}\left ( -1 + \sqrt{5} \right )}{\sqrt{1 + \left ( 1 +\frac{1}{2} 
 \left ( -1 + \sqrt{5} \right ) \right )^2}} 
-
 & \frac{1+\frac{1}{2}\left ( -1 - \sqrt{5} \right )}{\sqrt{1 + \left ( 1 +\frac{1}{2} 
 \left ( -1 - \sqrt{5} \right ) \right )^2}} 
-
 \\ 
-
 \frac{1}{\sqrt{1 + \left ( 1 +\frac{1}{2} 
 \left ( -1 + \sqrt{5} \right ) \right )^2}} 
  
@@ -126,7 +268,7 @@ U =
 $
 
 $
-\Sigma =
+D =
 \begin{pmatrix}
 \sqrt{\frac{1}{2}\left ( 3 + \sqrt{5} \right )}
 & 0
@@ -139,16 +281,16 @@ $
 $V = 
 \begin{pmatrix}
 \frac{-1 + \sqrt{5}}{2\sqrt{1 + \frac{1}{4}\left ( -1 + \sqrt{5}\right )^2}} 
-
 & \frac{-1 - \sqrt{5}}{2\sqrt{1 + \frac{1}{4}\left ( -1 - \sqrt{5}\right )^2}} 
-
 \\ 
-
 \frac{1}{\sqrt{1 + \frac{1}{4}\left ( -1 + \sqrt{5}\right )^2}} 
-
 & \frac{1}{\sqrt{1 + \frac{1}{4}\left ( -1 - \sqrt{5}\right )^2}} 
 \end{pmatrix}$
 
-Luego, $A = U \Sigma V^{\dag}$
+Luego, $A = U D V^{\dag}$
+
+Entonces, $\ket{\Psi} = \sum_{i,j,k} U_{j,i} D_{i,i} V^{\dag}_{i,k}\ket{ij}$.
+
+Tomamos, $\ket{i_A} = \sum_{j} U_{j,i}\ket{j}$
 
 \end{document}
