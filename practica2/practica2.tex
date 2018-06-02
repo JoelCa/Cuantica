@@ -164,10 +164,10 @@ Calculemos la matriz de densidad $\rho$ del sistema compuesto por los sistemas a
 \end{align*}
 
 \item Consideremos la medición proyectiva $\{ P_0, P_1, P_2, P_3 \}$, donde $P_0 = \ket{00}\bra{00}$, $P_1=\ket{11}\bra{11}$, 
-$P_2 = \ket{01}\bra{01}$, $P_3 = \ket{01}\bra{10}$.
+$P_2 = \ket{01}\bra{01}$, $P_3 = \ket{01}\bra{10}$. Vemos cuales son los posibles resultados de la medición sobre $\rho$.
 
 \begin{itemize}
-\item Caso 0.
+\item La probabilidad de medir 0 es:
   \begin{align*}
     p(0)
     &= tr( P_0^{\dag} P_0 \rho )
@@ -183,7 +183,7 @@ $P_2 = \ket{01}\bra{01}$, $P_3 = \ket{01}\bra{10}$.
 
   $\frac{P_0 \rho P_{0}^{\dag}}{p(0)} = \frac{\frac{5}{64} \ket{00}\bra{00}}{\frac{5}{64}} = \ket{00}\bra{00}$
 
-\item Caso 1.
+\item La probabilidad de medir 1 es:
 
   \begin{align*}
     p(1)
@@ -198,7 +198,7 @@ $P_2 = \ket{01}\bra{01}$, $P_3 = \ket{01}\bra{10}$.
 
   $\frac{P_1 \rho P_{1}^{\dag}}{p(1)} = \frac{\frac{21}{64} \ket{11}\bra{11}}{\frac{21}{64}} = \ket{11}\bra{11}$
   
-\item Caso 2.
+\item La probabilidad de medir 2 es:
 
   \begin{align*}
     p(2)
@@ -213,7 +213,7 @@ $P_2 = \ket{01}\bra{01}$, $P_3 = \ket{01}\bra{10}$.
 
   $\frac{P_2 \rho P_{2}^{\dag}}{p(2)} = \frac{\frac{35}{64} \ket{01}\bra{01}}{\frac{35}{64}} = \ket{01}\bra{01}$
 
-\item Caso 3.
+\item La probabilidad de medir 3 es:
 
   \begin{align*}
     p(3)
@@ -224,7 +224,7 @@ $P_2 = \ket{01}\bra{01}$, $P_3 = \ket{01}\bra{10}$.
     \\ &= \frac{3}{64}
   \end{align*}
 
-  Luego, el estado del sistema luego de la medición es el siguiente.
+  Mientras que, el estado del sistema luego de la medición es el siguiente.
 
   $\frac{P_3 \rho P_{3}^{\dag}}{p(3)} = \frac{\frac{3}{64} \ket{10}\bra{10}}{\frac{3}{64}} = \ket{10}\bra{10}$
 
@@ -234,13 +234,11 @@ $P_2 = \ket{01}\bra{01}$, $P_3 = \ket{01}\bra{10}$.
 
 \subsection*{Descomposición de Schmidt}
 
-Vamos a calcular la descomposición de Schmidt del siquiente qubit.
+Tenemos que calcular la descomposición de Schmidt del siquiente qubit:
+$\ket{\Psi} = \frac{\ket{00} + \ket{01} + \ket{11}}{\sqrt{3}}$.
 
-$\ket{\Psi} = \frac{\ket{00} + \ket{01} + \ket{11}}{\sqrt{3}}$
-
-Para ello, reescribimos el estado utilizando una matriz.
-
-Tenemos que, $\ket{\Psi} = \sum_{i,j} A_{i,j} \ket{ij}$, donde
+Para ello, vamos a escribir el estado mediante una matriz.
+O sea, $\ket{\Psi} = \sum_{i,j} A_{i,j} \ket{ij}$, donde
 
 $A = 
 \begin{pmatrix}
@@ -249,48 +247,85 @@ $A =
 \end{pmatrix}
 $
 
-Ahora, vamos a calcular la descomposición en valores singulares de $A$.
+Luego, calculamos la descomposición en valores singulares de $A$.
 
 $
 U =
 \begin{pmatrix}
-\frac{1+\frac{1}{2}\left ( -1 + \sqrt{5} \right )}{\sqrt{1 + \left ( 1 +\frac{1}{2} 
-\left ( -1 + \sqrt{5} \right ) \right )^2}} 
-& \frac{1+\frac{1}{2}\left ( -1 - \sqrt{5} \right )}{\sqrt{1 + \left ( 1 +\frac{1}{2} 
-\left ( -1 - \sqrt{5} \right ) \right )^2}} 
-\\ 
-\frac{1}{\sqrt{1 + \left ( 1 +\frac{1}{2} 
-\left ( -1 + \sqrt{5} \right ) \right )^2}} 
- 
-& \frac{1}{\sqrt{1 + \left ( 1 +\frac{1}{2} 
-\left ( -1 - \sqrt{5} \right ) \right )^2}} 
-\end{pmatrix}
-$
+\frac{\frac{1}{\sqrt{3}} + \frac{-1+\sqrt{5}}{2\sqrt{3}}}{\frac{1}{3}+
+\left ( \frac{1}{\sqrt{3}} + \frac{-1 + \sqrt{5}}{2\sqrt{3}} \right)^2}  & 
+\frac{\frac{1}{\sqrt{3}} + \frac{-1+\sqrt{5}}{2\sqrt{3}}}{\frac{1}{3}+
+\left ( -\frac{1}{\sqrt{3}} - \frac{-1 - \sqrt{5}}{2\sqrt{3}} \right)^2}  \\ 
+\frac{1}{\sqrt{3 \left ( \frac{1}{3} + \left ( \frac{1}{\sqrt{3}} + 
+\frac{-1 + \sqrt{5}}{2\sqrt{3}}\right )^2\right )}} & 
+\frac{1}{\sqrt{3 \left ( \frac{1}{3} + \left ( - \frac{1}{\sqrt{3}} - 
+\frac{-1 - \sqrt{5}}{2\sqrt{3}}\right )^2\right )}}
+\end{pmatrix}$
 
 $
 D =
 \begin{pmatrix}
-\sqrt{\frac{1}{2}\left ( 3 + \sqrt{5} \right )}
+\sqrt{\frac{1}{6}\left ( 3 + \sqrt{5} \right )}
 & 0
 \\ 
 0
-& \sqrt{\frac{1}{2}\left ( 3 - \sqrt{5} \right )}
+& \sqrt{\frac{1}{6}\left ( 3 - \sqrt{5} \right )}
 \end{pmatrix}
 $
 
 $V = 
 \begin{pmatrix}
 \frac{-1 + \sqrt{5}}{2\sqrt{1 + \frac{1}{4}\left ( -1 + \sqrt{5}\right )^2}} 
-& \frac{-1 - \sqrt{5}}{2\sqrt{1 + \frac{1}{4}\left ( -1 - \sqrt{5}\right )^2}} 
-\\ 
-\frac{1}{\sqrt{1 + \frac{1}{4}\left ( -1 + \sqrt{5}\right )^2}} 
-& \frac{1}{\sqrt{1 + \frac{1}{4}\left ( -1 - \sqrt{5}\right )^2}} 
+& 
+\frac{1}{\sqrt{1 + \frac{1}{4}\left ( -1 + \sqrt{5}\right )^2}} \\
+\frac{-1 - \sqrt{5}}{2\sqrt{1 + \frac{1}{4}\left ( 1 + \sqrt{5}\right )^2}} 
+& \frac{1}{\sqrt{1 + \frac{1}{4}\left ( 1 + \sqrt{5}\right )^2}} 
 \end{pmatrix}$
 
-Luego, $A = U D V^{\dag}$
+Luego, $A = U D V$.
 
-Entonces, $\ket{\Psi} = \sum_{i,j,k} U_{j,i} D_{i,i} V^{\dag}_{i,k}\ket{ij}$.
+Entonces, $\ket{\Psi} = \sum_{i,j,k} U_{j,i} D_{i,i} V_{i,k}\ket{ij}$.
 
-Tomamos, $\ket{i_A} = \sum_{j} U_{j,i}\ket{j}$
+Tomamos, $\ket{i_A} = \sum_{j} U_{j,i}\ket{j}$, $\ket{i_B} = \sum_{k} V_{i,k}\ket{k}$, y $\lambda_{i} = D_{i,i}$.
+
+Es decir, 
+
+$\ket{0_A} = \frac{\frac{1}{\sqrt{3}} + \frac{-1+\sqrt{5}}{2\sqrt{3}}}{\frac{1}{3}+
+\left ( \frac{1}{\sqrt{3}} + \frac{-1 + \sqrt{5}}{2\sqrt{3}} \right)^2} \ket{0} +
+\frac{1}{\sqrt{3 \left ( \frac{1}{3} + \left ( \frac{1}{\sqrt{3}} + 
+\frac{-1 + \sqrt{5}}{2\sqrt{3}}\right )^2\right )}}\ket{1}
+$,
+
+$\ket{1_A} = \frac{\frac{1}{\sqrt{3}} + \frac{-1+\sqrt{5}}{2\sqrt{3}}}{\frac{1}{3}+
+\left ( -\frac{1}{\sqrt{3}} - \frac{-1 - \sqrt{5}}{2\sqrt{3}} \right)^2} \ket{0} +
+\frac{1}{\sqrt{3 \left ( \frac{1}{3} + \left ( - \frac{1}{\sqrt{3}} - 
+\frac{-1 - \sqrt{5}}{2\sqrt{3}}\right )^2\right )}}
+\ket{1}$,
+
+$\ket{0_B} = 
+\frac{-1 + \sqrt{5}}{2\sqrt{1 + \frac{1}{4}\left ( -1 + \sqrt{5}\right )^2}}\ket{0} +
+\frac{1}{\sqrt{1 + \frac{1}{4}\left ( -1 + \sqrt{5}\right )^2}}\ket{1}$,
+
+$\ket{1_B} = \frac{-1 - \sqrt{5}}{2\sqrt{1 + \frac{1}{4}\left ( 1 + \sqrt{5}\right )^2}}\ket{0} +
+\frac{1}{\sqrt{1 + \frac{1}{4}\left ( 1 + \sqrt{5}\right )^2}}\ket{1}$.
+
+Se puede ver que tanto $\{ \ket{0_A}, \ket{1_A}\}$, como $\{ \ket{0_B}, \ket{1_B}\}$, son una base ortonormal de $\mathbb{C}^2$.
+
+Además, $\lambda_i \in \mathbb{R}^+$, y $\sum_i \lambda_i^2 = 1$.
+
+Se tiene que, $\ket{\Psi} = \sum_{i=0}^2 \lambda_i (\ket{i_A} \otimes \ket{i_B}) = 
+\sqrt{\frac{1}{6}\left ( 3 + \sqrt{5} \right )} (\ket{0_A} \otimes \ket{0_B}) +
+\sqrt{\frac{1}{6}\left ( 3 - \sqrt{5} \right )} (\ket{1_A} \otimes \ket{1_B})$.
+
+Solo vemos que lo anterior vale mediante aproximaciones.
+
+  \begin{align*}
+    \lambda_0(\ket{0_A} \otimes \ket{0_B}) + \lambda_1 (\ket{1_A} \otimes \ket{1_B})
+    &\simeq \lambda_0 (0.448 \ket{00} + 0.724\ket{01} + 0.277\ket{10} + 0.448\ket{11})
+    \\ &+ \lambda_1 (0.448 \ket{00} - 0.278 \ket{01} - 0.724 \ket{10} + 0.448 \ket{11})
+    \\ &\simeq 0.578 \ket{00} + 0.577 \ket{01} + 0.578 \ket{11}
+    \\ &\simeq \ket{\Psi}
+  \end{align*}
+
 
 \end{document}
