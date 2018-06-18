@@ -1,0 +1,108 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,top=2.0cm,right=1.5cm,bottom=2.0cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,bm}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{braket}
+\usepackage{stackrel}
+\usepackage{cmll}
+\usepackage{bussproofs}
+
+\title{}
+\author{}
+
+\begin{document}
+
+\maketitle 
+
+\thispagestyle{empty}
+\begin{center}
+\section*{Introducción a  la computación cuántica y fundamentos de lenguajes de programación} 
+\subsection*{Ejercicios resueltos de la práctica 3}
+\subsubsection*{Joel Catacora}
+
+\end{center}
+
+\newpage{\pagestyle{empty}\cleardoublepage}
+
+\newpage
+
+\section*
+{Ejercicios}
+
+\subsection*{Ejercicio 42}
+
+\begin{itemize}
+\item Regla asociada a $ax_v$
+
+  \begin{prooftree}
+    \AxiomC{}
+    \RightLabel{\scriptsize{$ax$}}
+    \UnaryInfC{$A \vdash A$}
+  \end{prooftree}
+
+\item Regla asociada a $\multimap_i$
+\begin{prooftree}
+\AxiomC{$\Gamma, A \vdash B$}
+\RightLabel{\scriptsize{$\neg_r$}}
+\UnaryInfC{$\Gamma \vdash \neg A, B$}
+\RightLabel{\scriptsize{$\parr_r$}}
+\UnaryInfC{$ \Gamma \vdash \neg A \parr B$}
+\end{prooftree}
+
+\item Regla asociada a $\multimap_e$
+
+\begin{prooftree}
+\AxiomC{$\Gamma\vdash A \multimap B$}
+\UnaryInfC{$\Gamma \vdash \neg A \parr B$}
+
+\AxiomC{$\Delta \vdash A$}
+\RightLabel{\scriptsize{$\neg_l$}}
+\UnaryInfC{$\Delta, \neg A \vdash$}
+
+\AxiomC{}
+\RightLabel{\scriptsize{$ax$}}
+\UnaryInfC{$B \vdash B$}
+\RightLabel{\scriptsize{$\parr_l$}}
+\BinaryInfC{$\Delta, \neg A \parr B \vdash B$}
+
+\RightLabel{\scriptsize{$cut$}}
+\BinaryInfC{$ \Gamma, \Delta \vdash B$}
+\end{prooftree}
+
+\item Regla asociada a $\odot$
+
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash \oc 1$}
+\RightLabel{\scriptsize{$1_l$}}
+\UnaryInfC{$\Gamma, 1 \vdash \oc 1 $}
+\RightLabel{\scriptsize{$D_\oc$}}
+\UnaryInfC{$\Gamma, \oc 1 \vdash \oc 1 $}
+
+\AxiomC{$\Delta \vdash \oc 1$}
+\RightLabel{\scriptsize{$cut$}}
+\BinaryInfC{$ \Gamma, \Delta \vdash \oc 1$}
+
+\end{prooftree}
+
+\end{itemize}
+% \AxiomC{B}
+% \AxiomC{C}
+% \BinaryInfC{D}
+
+
+\end{document}
+
+
+
+
+
+
+
+
