@@ -39,7 +39,7 @@
 \subsection*{Ejercicio 42}
 
 \begin{itemize}
-\item Regla asociada a $ax_v$
+\item Regla asociada a $ax_v$. Tenemos que probar que, $A \vdash A$.
 
   \begin{prooftree}
     \AxiomC{}
@@ -47,55 +47,101 @@
     \UnaryInfC{$A \vdash A$}
   \end{prooftree}
 
-\item Regla asociada a $\multimap_i$
-\begin{prooftree}
-\AxiomC{$\Gamma, A \vdash B$}
-\RightLabel{\scriptsize{$\neg_r$}}
-\UnaryInfC{$\Gamma \vdash \neg A, B$}
-\RightLabel{\scriptsize{$\parr_r$}}
-\UnaryInfC{$ \Gamma \vdash \neg A \parr B$}
-\end{prooftree}
+\item Regla asociadad a $ax_c$. Tenemos que probar que, $\vdash !1$.
+  
+  \begin{prooftree}
+    \AxiomC{}
+    \RightLabel{\scriptsize{$1_r$}}
+    \UnaryInfC{$\vdash 1$}
+    \RightLabel{\scriptsize{$\oc_r$}}
+    \UnaryInfC{$\vdash \oc 1$}
+  \end{prooftree}
 
-\item Regla asociada a $\multimap_e$
+\item Regla asociada a $\multimap_i$. Tenemos que probar que si $\Gamma, A \vdash B$; entonces $\Gamma \vdash \neg A \parr B$.
 
-\begin{prooftree}
-\AxiomC{$\Gamma\vdash A \multimap B$}
-\UnaryInfC{$\Gamma \vdash \neg A \parr B$}
+  \begin{prooftree}
+    \AxiomC{$\Gamma, A \vdash B$}
+    \RightLabel{\scriptsize{$\neg_r$}}
+    \UnaryInfC{$\Gamma \vdash \neg A, B$}
+    \RightLabel{\scriptsize{$\parr_r$}}
+    \UnaryInfC{$ \Gamma \vdash \neg A \parr B$}
+  \end{prooftree}
 
-\AxiomC{$\Delta \vdash A$}
-\RightLabel{\scriptsize{$\neg_l$}}
-\UnaryInfC{$\Delta, \neg A \vdash$}
+\item Regla asociada a $\multimap_e$. Probemos que si $\Gamma \vdash \neg A \parr B$; y $\Delta \vdash A$; entonces
+  $\Gamma, \Delta \vdash B$.
+ 
+  \begin{prooftree}
+    \AxiomC{$\Gamma \vdash \neg A \parr B$}
 
-\AxiomC{}
-\RightLabel{\scriptsize{$ax$}}
-\UnaryInfC{$B \vdash B$}
-\RightLabel{\scriptsize{$\parr_l$}}
-\BinaryInfC{$\Delta, \neg A \parr B \vdash B$}
+    \AxiomC{$\Delta \vdash A$}
+    \RightLabel{\scriptsize{$\neg_l$}}
+    \UnaryInfC{$\Delta, \neg A \vdash$}
 
-\RightLabel{\scriptsize{$cut$}}
-\BinaryInfC{$ \Gamma, \Delta \vdash B$}
-\end{prooftree}
+    \AxiomC{}
+    \RightLabel{\scriptsize{$ax$}}
+    \UnaryInfC{$B \vdash B$}
+    \RightLabel{\scriptsize{$\parr_l$}}
+    \BinaryInfC{$\Delta, \neg A \parr B \vdash B$}
 
-\item Regla asociada a $\odot$
+    \RightLabel{\scriptsize{$cut$}}
+    \BinaryInfC{$ \Gamma, \Delta \vdash B$}
+  \end{prooftree}
 
-\begin{prooftree}
-\AxiomC{$\Gamma \vdash \oc 1$}
-\RightLabel{\scriptsize{$1_l$}}
-\UnaryInfC{$\Gamma, 1 \vdash \oc 1 $}
-\RightLabel{\scriptsize{$D_\oc$}}
-\UnaryInfC{$\Gamma, \oc 1 \vdash \oc 1 $}
+\item Regla asociada a $\odot$. Probemos que si $\Gamma \vdash \oc 1$; y $\Delta \vdash \oc 1$; entonces 
+  $\Gamma, \Delta \vdash \oc 1$.
 
-\AxiomC{$\Delta \vdash \oc 1$}
-\RightLabel{\scriptsize{$cut$}}
-\BinaryInfC{$ \Gamma, \Delta \vdash \oc 1$}
+  \begin{prooftree}
+    \AxiomC{$\Gamma \vdash \oc 1$}
+    \RightLabel{\scriptsize{$1_l$}}
+    \UnaryInfC{$\Gamma, 1 \vdash \oc 1 $}
+    \RightLabel{\scriptsize{$D_\oc$}}
+    \UnaryInfC{$\Gamma, \oc 1 \vdash \oc 1 $}
 
-\end{prooftree}
+    \AxiomC{$\Delta \vdash \oc 1$}
+    \RightLabel{\scriptsize{$cut$}}
+    \BinaryInfC{$ \Gamma, \Delta \vdash \oc 1$}
+  \end{prooftree}
+
+\item Regla asociada a $ifz$. Veamos que $\Gamma \vdash \oc 1$; y $\Delta \vdash A$; entonces 
+  $\Gamma, \Delta \vdash A$
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma \vdash \oc 1$}
+    \AxiomC{$\Delta \vdash A$}
+    \RightLabel{\scriptsize{$W_{\oc}$}}
+    \UnaryInfC{$\Delta, \oc 1 \vdash A $}
+    \RightLabel{\scriptsize{$cut$}}
+    \BinaryInfC{$ \Gamma, \Delta \vdash A$}
+  \end{prooftree}
+
+\item Regla asociada a $let$. Probemos que $\Gamma, A \vdash B$; y $\Delta \vdash A$; entonces
+  $\Gamma, \Delta \vdash B$.
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma, A \vdash B$}
+    \AxiomC{$\Delta \vdash A$}
+    \RightLabel{\scriptsize{$cut$}}
+    \BinaryInfC{$\Gamma, \Delta \vdash B$}
+  \end{prooftree}
+
+\item Regla asociada a $W$. Luego, veamos que si $\Gamma \vdash A$; entonces $\Gamma, \oc B \vdash A$.
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma \vdash A$}
+    \RightLabel{\scriptsize{$W_{\oc}$}}
+    \UnaryInfC{$\Gamma, \oc B \vdash A$}
+  \end{prooftree}
+
+\item Regla asociada a $C$. Luego, tenemos que si $\Gamma, \oc B, \oc B \vdash A$, entonces
+  $\Gamma, \oc B \vdash A$.
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma, \oc B, \oc B \vdash A$}
+    \RightLabel{\scriptsize{$C_{\oc}$}}
+    \UnaryInfC{$\Gamma, \oc B \vdash A$}
+  \end{prooftree}
 
 \end{itemize}
-% \AxiomC{B}
-% \AxiomC{C}
-% \BinaryInfC{D}
-
 
 \end{document}
 
