@@ -143,6 +143,28 @@
 
 \end{itemize}
 
+
+\subsection*{Ejercicio 43}
+
+Daremos la derivación de tipos para el término $\lambda x. x + x$.
+
+
+  \begin{prooftree}
+    \AxiomC{}
+    \RightLabel{\scriptsize{$ax_v$}}
+    \UnaryInfC{$x : \oc \textsf{nat} \vdash x : \oc \textsf{nat}$}
+    \AxiomC{}
+    \RightLabel{\scriptsize{$ax_v$}}
+    \UnaryInfC{$y : \oc \textsf{nat} \vdash y : \oc \textsf{nat}$}
+    \RightLabel{\scriptsize{$\odot$}}
+    \BinaryInfC{$x : \oc \textsf{nat}, y : \oc \textsf{nat} \vdash x + y : \oc \textsf{nat}$}
+    \RightLabel{\scriptsize{$C$}}
+    \UnaryInfC{$x : \oc \textsf{nat} \vdash x + x : \oc \textsf{nat}$}
+    \RightLabel{\scriptsize{$\multimap_i$}}
+    \UnaryInfC{$\vdash \lambda x. x + x : \oc \textsf{nat} \multimap \oc \textsf{nat}$}
+  \end{prooftree}
+
+Luego, $\lambda x. x + x : \oc \textsf{nat} \multimap \oc \textsf{nat}$.
 \end{document}
 
 
