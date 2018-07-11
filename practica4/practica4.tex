@@ -53,10 +53,16 @@ $ \textsf{Bob} = \lambda x : S(\mathds{B} \times \mathds{B}). \; \pi_{2} (\Uparr
 $ \textsf{CodSuper} = \lambda w : \mathds{B} \times \mathds{B}. \; \textsf{Bob} \; (\textsf{Alice} \; (w \times \beta_{00}) ) 
   : \mathds{B} \times \mathds{B} \Rightarrow \mathds{B} \times \mathds{B}.$
 
+Donde,
+
 $ \textsf{not} = \lambda x: \mathds{B}. \; \textsf{isZ}(x) ? \ket{1} : \ket{0}$.
 
 $ \textsf{cnot} = \lambda x: \mathds{B} \times \mathds{B}. \; ( head \; x) \times (\textsf{isZ}( head \; x) ?
   (tail \; x) : (\textsf{not} \; (tail \; x)) )$
+
+$ \textsf{H} = \lambda x : \mathds{B}. \; (\frac{1}{\sqrt{2}}.(\ket{0} + (\textsf{isZ}(x) ? \ket{1} : -\ket{1}))) $
+
+$ \textsf{H}_{1} = \lambda x : \mathds{B} \times \mathds{B} . (\textsf{H} \; (head \; x)) \times (tail \; x)$
 
 \end{document}
 
