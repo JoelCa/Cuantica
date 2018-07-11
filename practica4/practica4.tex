@@ -1,0 +1,63 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,top=2.0cm,right=1.5cm,bottom=2.0cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,bm}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{braket}
+\usepackage{stackrel}
+\usepackage{bussproofs}
+\usepackage{dsfont}
+
+\title{}
+\author{}
+
+\begin{document}
+
+\maketitle 
+
+\thispagestyle{empty}
+\begin{center}
+\section*{Introducción a  la computación cuántica y fundamentos de lenguajes de programación} 
+\subsection*{Ejercicio resuelto de lambda cálculo cuántico.}
+\subsubsection*{Joel Catacora}
+
+\end{center}
+
+\newpage{\pagestyle{empty}\cleardoublepage}
+
+\newpage
+
+\section*
+{Ejercicio}
+
+Vamos a dar el lambda término de la codificación superdensa. Junto con su tipo.
+
+$ \textsf{Alice} = \lambda x : (\mathds{B} \times \mathds{B}) \times S (\mathds{B} \times \mathds{B}). \; \textsf{A} \; (\Uparrow_{l} x)
+ : (\mathds{B} \times  \mathds{B}) \times S(\mathds{B} \times \mathds{B}) \Rightarrow S(\mathds{B} \times \mathds{B})$
+
+
+$ \textsf{A} = \lambda x: (\mathds{B} \times \mathds{B}) \times (\mathds{B} \times \mathds{B}). \; ((\textsf{Z}^{(head \; head \; x)} 
+  (\textsf{not}^{(tail \; head \; x)} (head \; tail \; x))) \times (tail \; tail \; x)) 
+  : (\mathds{B} \times  \mathds{B}) \times (\mathds{B} \times  \mathds{B}) 
+  \Rightarrow \mathds{B} \times \mathds{B}.$
+
+$ \textsf{Bob} = \lambda x : S(\mathds{B} \times \mathds{B}). \; \pi_{2} (\Uparrow_{r} \textsf{H}_{1} (\textsf{cnot} \; x)) 
+  : S(\mathds{B} \times \mathds{B}) \Rightarrow S(\mathds{B} \times \mathds{B}).$
+
+$ \textsf{CodSuper} = \lambda w : \mathds{B} \times \mathds{B}. \; \textsf{Bob} \; (\textsf{Alice} \; (w \times \beta_{00}) ) 
+  : \mathds{B} \times \mathds{B} \Rightarrow \mathds{B} \times \mathds{B}.$
+
+$ \textsf{not} = \lambda x: \mathds{B}. \; \textsf{isZ}(x) ? \ket{1} : \ket{0}$.
+
+$ \textsf{cnot} = \lambda x: \mathds{B} \times \mathds{B}. \; ( head \; x) \times (\textsf{isZ}( head \; x) ?
+  (tail \; x) : (\textsf{not} \; (tail \; x)) )$
+
+\end{document}
+
+
