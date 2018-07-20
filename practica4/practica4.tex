@@ -39,15 +39,19 @@
 Vamos a dar un lambda término de la codificación superdensa, junto con su tipo.
 
 \begin{tabbing}
-  $\textsf{Alice}$ \= $=$ \= $\lambda x : (\mathds{B} \times \mathds{B}) \times S (\mathds{B} \times \mathds{B}). 
-  \; \textsf{A} \; (\Uparrow_{l} x)$ \\
+  $\textsf{Alice}$ \= $=$ \= $\lambda b : \mathds{B}^2. \; \lambda x : S(\mathds{B}^2). 
+  \; \Uparrow_r (\textsf{A}_1 \; b \; x)$ \\
   
-  \> \> $: (\mathds{B} \times  \mathds{B}) \times S(\mathds{B} \times \mathds{B}) \Rightarrow S(\mathds{B} \times \mathds{B})$ \\
+  \> \> $: \mathds{B}^2 \Rightarrow S(\mathds{B}^2) \Rightarrow S(\mathds{B}^2)$ \\
 
-  $\textsf{A}$ \> $= \lambda x: (\mathds{B} \times \mathds{B}) \times (\mathds{B} \times \mathds{B}). \; ((\textsf{Z}^{(head \; head \; x)}\; 
-  (\textsf{not}^{(tail \; head \; x)} \; (head \; tail \; x))) \times (tail \; tail \; x))$ \\
-
-  \> \> $: (\mathds{B} \times  \mathds{B}) \times (\mathds{B} \times  \mathds{B}) \Rightarrow \mathds{B} \times \mathds{B}$ \\
+  $\textsf{A}_1$ \> $= \lambda b : \mathds{B}^2 . \; \lambda x : \mathds{B}^2. \; ( \textsf{A}_2 \; (head \; b) \; (tail \; b) \; (head \; x)) 
+  \times (tail \; x)$ \\
+  \> \> $: \mathds{B}^2 \Rightarrow \mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B}$ \\
+  
+  $\textsf{A}_2$ \> $= \lambda b_1:\mathds{B}. \; \lambda b_2:\mathds{B}. \; \lambda x : \mathds{B}. \;
+  \textsf{isZ} \; b_1 ? (\textsf{isZ} \; b_2 ? x : \textsf{not} \; x) : 
+  (\textsf{isZ} \; b_2 ? \textsf{Z} \; x : \textsf{Z} (\textsf{not} \; x))$ \\
+  \> \> $: \mathds{B} \Rightarrow \mathds{B} \Rightarrow \mathds{B} \Rightarrow S(\mathds{B})$ \\ 
 
   $\textsf{Bob}$ \> $= \lambda x : S(\mathds{B} \times \mathds{B}). \; \pi_{2} \; (\Uparrow_{r} \textsf{H}_{1} (\textsf{cnot} \; x)) 
   : S(\mathds{B} \times \mathds{B}) \Rightarrow S(\mathds{B} \times \mathds{B})$
@@ -56,8 +60,8 @@ Vamos a dar un lambda término de la codificación superdensa, junto con su tipo
 El lambda término final es el siguiente:
 
 \begin{tabbing}
-  $\textsf{CodSuper} = \lambda w : \mathds{B} \times \mathds{B}. \; \textsf{Bob} \; (\textsf{Alice} \; (w \times \beta_{00}) ) 
-  : \mathds{B} \times \mathds{B} \Rightarrow \mathds{B} \times \mathds{B}$
+  $\textsf{CodSuper} = \lambda b : \mathds{B}^2. \; \textsf{Bob} \; (\textsf{Alice} \; b \; \beta_{00}) 
+  : \mathds{B}^2 \Rightarrow \mathds{B}^2$
 \end{tabbing}
 
 Consideramos las siguientes definiciones:
@@ -74,6 +78,35 @@ Consideramos las siguientes definiciones:
 
   $\textsf{Z}$ \> $= \lambda x : \mathds{B}. \; \textsf{isZ}(x) ? \ket{0} : - \ket{1}$
 \end{tabbing}
+
+Daremos la derivación de tipos de $\textsf{A}_2 : \mathds{B} \Rightarrow \mathds{B} \Rightarrow \mathds{B} \Rightarrow S(\mathds{B})$.
+Consideramos $\alpha_1 = \textsf{isZ} \; b_2 ? x : \textsf{not} \; x$, y
+$\alpha_2 = \textsf{isZ} \; b_2 ? \textsf{Z} \; x : \textsf{Z} (\textsf{not} \; x)$
+
+
+\begin{prooftree}
+  \AxiomC{$$}
+  \UnaryInfC{$\Delta \vdash \alpha_1:S(\mathds{B})$}
+  \AxiomC{$$}
+  \UnaryInfC{$\Delta \vdash \alpha_2:S(\mathds{B})$}
+  \RightLabel{\scriptsize{If}}
+  \BinaryInfC{$b_2:\mathds{B}, x:\mathds{B} \vdash (\textsf{isZ}() ? \alpha_1 : \alpha_2) : \mathds{B} \Rightarrow S(\mathds{B})$}
+  \AxiomC{$$}
+  \RightLabel{\scriptsize{Ax}}
+  \UnaryInfC{$b_1 : \mathds{B} \vdash b_1 : \mathds{B}$}
+  \RightLabel{\scriptsize{$\Rightarrow_E$}}
+  \BinaryInfC{$b_1: \mathds{B}, b_2:\mathds{B}, x : \mathds{B} \vdash 
+  \textsf{isZ} \; b_1 ? \alpha_1: \alpha_2$}
+  \RightLabel{\scriptsize{$\Rightarrow_I$}}
+  \UnaryInfC{$b_1: \mathds{B}, b_2:\mathds{B} \vdash \lambda x : \mathds{B}. 
+  \; \textsf{isZ} \; b_1 ? \alpha_1: \alpha_2$}
+  \RightLabel{\scriptsize{$\Rightarrow_I$}}
+  \UnaryInfC{$b_1 : \mathds{B} \vdash \lambda b_2:\mathds{B}. \; \lambda x : \mathds{B}. 
+  \; \textsf{isZ} \; b_1 ? \alpha_1: \alpha_2$}
+  \RightLabel{\scriptsize{$\Rightarrow_I$}}
+  \UnaryInfC{$\vdash \lambda b_1:\mathds{B}. \; \lambda b_2:\mathds{B}. \; \lambda x : \mathds{B}. 
+  \; \textsf{isZ} \; b_1 ? \alpha_1: \alpha_2$}
+\end{prooftree}
 
 Daremos la derivación de tipos de $\textsf{Alice} : (\mathds{B} \times  \mathds{B}) \times S(\mathds{B} \times \mathds{B}) \Rightarrow S(\mathds{B} \times \mathds{B})$.
 
