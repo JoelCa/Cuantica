@@ -24,7 +24,7 @@
 \thispagestyle{empty}
 \begin{center}
 \section*{Introducción a  la computación cuántica y fundamentos de lenguajes de programación} 
-\subsection*{Ejercicio resuelto de lambda cálculo cuántico.}
+\subsection*{Ejercicio resuelto del lambda cálculo cuántico.}
 \subsubsection*{Joel Catacora}
 
 \end{center}
@@ -49,8 +49,8 @@ Vamos a dar un lambda término de la codificación superdensa, junto con su tipo
   \> \> $: \mathds{B}^2 \Rightarrow \mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B}$ \\
   
   $\textsf{A}_2$ \> $= \lambda b_1:\mathds{B}. \; \lambda b_2:\mathds{B}. \; \lambda x : \mathds{B}. \;
-  \textsf{isZ} \; b_1 ? (\textsf{isZ} \; b_2 ? x : \textsf{not} \; x) : 
-  (\textsf{isZ} \; b_2 ? \textsf{Z} \; x : \textsf{Z} \; (\textsf{not} \; x))$ \\
+  \textsf{isZ}(b_1) ? (\textsf{isZ}(b_2) ? x : \textsf{not} \; x) : 
+  (\textsf{isZ}(b_2) ? \textsf{Z} \; x : \textsf{Z} \; (\textsf{not} \; x))$ \\
   \> \> $: \mathds{B} \Rightarrow \mathds{B} \Rightarrow \mathds{B} \Rightarrow S(\mathds{B})$ \\ 
 
   $\textsf{Bob}$ \> $= \lambda x : S(\mathds{B}^2). \; \pi_{2} \; (\Uparrow_{r} \textsf{H}_{1} (\textsf{cnot} \; x)) 
@@ -83,24 +83,118 @@ Consideramos las siguientes definiciones:
 
   $\textsf{Z}$ \> $= \lambda x : \mathds{B}. \; \textsf{isZ}(x) ? \ket{0} : - \ket{1}$ \\
   \> \> $: \mathds{B} \Rightarrow S(\mathds{B})$ \\
+
+  $\beta_{00}$ \> $= \frac{1}{\sqrt{2}}.\ket{00} + \frac{1}{\sqrt{2}}.\ket{11} : S(\mathds{B})$
+  
 \end{tabbing}
 
-Daremos la derivación de tipos de $\textsf{A}_2 : \mathds{B} \Rightarrow \mathds{B} \Rightarrow \mathds{B} \Rightarrow S(\mathds{B})$.
-Para ello, consideramos las siguientes definiciones: 
+Queremos probar que $\textsf{CodSuper} : \mathds{B}^2 \Rightarrow \mathds{B}^2$.
+Para ello, empezamos dando la derivación de tipos de $\textsf{Alice} : \mathds{B}^2 \Rightarrow S(\mathds{B}^2) \Rightarrow S(\mathds{B}^2)$.
+
+\begin{prooftree}
+  \AxiomC{}
+  \RightLabel{\scriptsize{Ax}}
+  \UnaryInfC{$b:\mathds{B}^2 \vdash b:\mathds{B}^2$}
+
+  \AxiomC{$\vdash A_1 : \mathds{B}^2 \Rightarrow \mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B}$}
+  
+  \RightLabel{\scriptsize{$\Rightarrow_E$}}
+  \BinaryInfC{$b:\mathds{B}^2 \vdash A_1 \; b :\mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B}$}
+  \RightLabel{\scriptsize{$\preceq$}}
+  \UnaryInfC{$b:\mathds{B}^2 \vdash A_1 \; b :S(\mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B})$}
+
+  \AxiomC{}
+  \RightLabel{\scriptsize{Ax}}
+  \UnaryInfC{$x:S(\mathds{B}^2) \vdash x:S(\mathds{B}^2)$}
+
+  \RightLabel{\scriptsize{$\Rightarrow_{ES}$}}
+  \BinaryInfC{$b : \mathds{B}^2, x : S(\mathds{B}^2) \vdash \textsf{A}_1 \; b \; x: S(S(\mathds{B})\times \mathds{B})$}
+  \RightLabel{\scriptsize{$\Uparrow_{r}$}}
+  \UnaryInfC{$b : \mathds{B}^2, x : S(\mathds{B}^2) \vdash \Uparrow_r (\textsf{A}_1 \; b \; x)
+  : S(\mathds{B}^2)$}
+  \RightLabel{\scriptsize{$\Rightarrow_{I}$}}
+  \UnaryInfC{$b : \mathds{B}^2 \vdash \lambda x : S(\mathds{B}^2). \; \Uparrow_r (\textsf{A}_1 \; b \; x)
+  : S(\mathds{B}^2) \Rightarrow S(\mathds{B}^2)$}
+  \RightLabel{\scriptsize{$\Rightarrow_{I}$}}
+  \UnaryInfC{$\vdash \lambda b : \mathds{B}^2. \; \lambda x : S(\mathds{B}^2). \; \Uparrow_r (\textsf{A}_1 \; b \; x)
+  : \mathds{B}^2 \Rightarrow S(\mathds{B}^2) \Rightarrow S(\mathds{B}^2)$}
+\end{prooftree}
+
+Veamos la derivación de $\textsf{Bob} : S(\mathds{B}^2) \Rightarrow \mathds{B}^2$.
+
+\begin{prooftree}
+  \AxiomC{$\vdash \textsf{H}_{1} : \mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B} $}
+  \RightLabel{\scriptsize{$\preceq$}}
+  \UnaryInfC{$\vdash \textsf{H}_{1} : S( \mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B})$}
+  \AxiomC{$\vdash \textsf{cnot} : \mathds{B}^2 \Rightarrow \mathds{B}^2$}
+  \RightLabel{\scriptsize{$\preceq$}}
+  \UnaryInfC{$\vdash \textsf{cnot} : S(\mathds{B}^2 \Rightarrow \mathds{B}^2)$}
+  \AxiomC{}
+  \RightLabel{\scriptsize{$Ax$}}
+  \UnaryInfC{$x : S(\mathds{B}^2) \vdash x : S(\mathds{B}^2)$}
+  \RightLabel{\scriptsize{$\Rightarrow_{ES}$}}  
+  \BinaryInfC{$x : S(\mathds{B}^2) \vdash \textsf{cnot} \; x : S(\mathds{B}^2)$}
+  \RightLabel{\scriptsize{$\Rightarrow_{ES}$}}  
+  \BinaryInfC{$x : S(\mathds{B}^2) \vdash \textsf{H}_{1} \; (\textsf{cnot} \; x) : S(S(\mathds{B}) \times \mathds{B})$}
+  \RightLabel{\scriptsize{$\Uparrow_{r}$}}
+  \UnaryInfC{$x : S(\mathds{B}^2) \vdash \; \Uparrow_{r} \textsf{H}_{1} \; (\textsf{cnot} \; x) : S(\mathds{B}^2)$}
+  \RightLabel{\scriptsize{$S_{E}$}}
+  \UnaryInfC{$x : S(\mathds{B}^2) \vdash \pi_{2} \; (\Uparrow_{r} \textsf{H}_{1} \; (\textsf{cnot} \; x)) 
+    : \mathds{B}^2$}
+  \RightLabel{\scriptsize{$\Rightarrow_{I}$}}
+  \UnaryInfC{$\vdash \lambda x : S(\mathds{B}^2). \; \pi_{2} \; (\Uparrow_{r} \textsf{H}_{1} (\textsf{cnot} \; x)) 
+    : S(\mathds{B}^2) \Rightarrow \mathds{B}^2$}
+\end{prooftree}
+
+Por último, tenemos la derivación de tipos de $\textsf{CodSuper} : \mathds{B}^2 \Rightarrow \mathds{B}^2$.
+
+\begin{prooftree}
+  \AxiomC{$\vdash \mathsf{Alice} : \mathds{B}^2 \Rightarrow S(\mathds{B}^2) \Rightarrow S(\mathds{B}^2)$}
+  
+  \AxiomC{}
+  \RightLabel{\scriptsize{Ax}}
+  \UnaryInfC{$b : \mathds{B}^2 \vdash b : \mathds{B}^2 $}
+
+  \RightLabel{\scriptsize{$\Rightarrow_{E}$}}    
+  \BinaryInfC{$b : \mathds{B}^2 \vdash \mathsf{Alice} \; b : S(\mathds{B}^2) \Rightarrow S(\mathds{B}^2)$}
+ 
+  \AxiomC{$\vdash \beta_{00} : S(\mathds{B}^2)$}
+  
+  \RightLabel{\scriptsize{$\Rightarrow_{E}$}}  
+  \BinaryInfC{$b : \mathds{B}^2  \vdash \textsf{Alice} \; b \; \beta_{00} : S(\mathds{B}^2)$}
+  \AxiomC {$\vdash \textsf{Bob} : S(\mathds{B}^2)$}
+  \noLine
+  \UnaryInfC{$\Rightarrow \mathds{B}^2$}
+  \RightLabel{\scriptsize{$\Rightarrow_{E}$}}
+  \BinaryInfC{$ b : \mathds{B}^2 \vdash \textsf{Bob} \; (\textsf{Alice} \; b \; \beta_{00}) 
+    : \mathds{B}^2$}
+  \RightLabel{\scriptsize{$\Rightarrow_{I}$}}      
+  \UnaryInfC{$\vdash \lambda b : \mathds{B}^2. \; \textsf{Bob} \; (\textsf{Alice} \; b \; \beta_{00}) 
+  : \mathds{B}^2 \Rightarrow \mathds{B}^2$}
+\end{prooftree}
+
+\subsection*
+{Pruebas auxiliares}
+
+A continuación, daremos las pruebas de los términos $\textsf{A}_1$, y $\textsf{A}_2$, los cuales utilizamos
+en la construcción del lambda término \textsf{Alice}.
+
+Empezamos probando $\textsf{A}_2 : \mathds{B} \Rightarrow \mathds{B} \Rightarrow \mathds{B} \Rightarrow S(\mathds{B})$.
+Consideramos las siguientes igualdades (a modo de abreviación):
 
 \begin{itemize}
-\item $\alpha_1 = \textsf{isZ} \; b_2 ? x : \textsf{not} \; x$, y
-\item $\alpha_2 = \textsf{isZ} \; b_2 ? \textsf{Z} \; x : \textsf{Z} (\textsf{not} \; x)$
+\item $\alpha_1 = \textsf{isZ}(b_2) ? x : \textsf{not} \; x$
+\item $\alpha_2 = \textsf{isZ}(b_2) ? \textsf{Z} \; x : \textsf{Z} \; (\textsf{not} \; x)$
 \end{itemize}
 
 
 \begin{prooftree}
   \AxiomC{}
   \RightLabel{\scriptsize{R-2}}
-  \UnaryInfC{$\Delta \vdash \alpha_2:S(\mathds{B})$}
+  \UnaryInfC{$b_2:\mathds{B}, x:\mathds{B} \vdash \alpha_2:S(\mathds{B})$}
   \AxiomC{}
   \RightLabel{\scriptsize{R-1}}
-  \UnaryInfC{$\Delta \vdash \alpha_1:S(\mathds{B})$}
+  \UnaryInfC{$b_2:\mathds{B}, x:\mathds{B} \vdash \alpha_1:S(\mathds{B})$}
   \RightLabel{\scriptsize{If}}
   \BinaryInfC{$b_2:\mathds{B}, x:\mathds{B} \vdash (\textsf{isZ}() ? \alpha_1 : \alpha_2) : \mathds{B} \Rightarrow S(\mathds{B})$}
   \AxiomC{$$}
@@ -108,16 +202,16 @@ Para ello, consideramos las siguientes definiciones:
   \UnaryInfC{$b_1 : \mathds{B} \vdash b_1 : \mathds{B}$}
   \RightLabel{\scriptsize{$\Rightarrow_E$}}
   \BinaryInfC{$b_1: \mathds{B}, b_2:\mathds{B}, x : \mathds{B} \vdash 
-  \textsf{isZ} \; b_1 ? \alpha_1: \alpha_2$}
+  (\textsf{isZ}(b_1) ? \alpha_1: \alpha_2) : S(\mathds{B})$}
   \RightLabel{\scriptsize{$\Rightarrow_I$}}
-  \UnaryInfC{$b_1: \mathds{B}, b_2:\mathds{B} \vdash \lambda x : \mathds{B}. 
-  \; \textsf{isZ} \; b_1 ? \alpha_1: \alpha_2$}
+  \UnaryInfC{$b_1: \mathds{B}, b_2:\mathds{B} \vdash (\lambda x : \mathds{B}. 
+  \; \textsf{isZ}(b_1) ? \alpha_1: \alpha_2) : \mathds{B} \Rightarrow S(\mathds{B})$}
   \RightLabel{\scriptsize{$\Rightarrow_I$}}
-  \UnaryInfC{$b_1 : \mathds{B} \vdash \lambda b_2:\mathds{B}. \; \lambda x : \mathds{B}. 
-  \; \textsf{isZ} \; b_1 ? \alpha_1: \alpha_2$}
+  \UnaryInfC{$b_1 : \mathds{B} \vdash (\lambda b_2:\mathds{B}. \; \lambda x : \mathds{B}. 
+  \; \textsf{isZ}(b_1) ? \alpha_1: \alpha_2) : \mathds{B} \Rightarrow \mathds{B} \Rightarrow S(\mathds{B})$}
   \RightLabel{\scriptsize{$\Rightarrow_I$}}
-  \UnaryInfC{$\vdash \lambda b_1:\mathds{B}. \; \lambda b_2:\mathds{B}. \; \lambda x : \mathds{B}. 
-  \; \textsf{isZ} \; b_1 ? \alpha_1: \alpha_2$}
+  \UnaryInfC{$\vdash (\lambda b_1:\mathds{B}. \; \lambda b_2:\mathds{B}. \; \lambda x : \mathds{B}. 
+  \; \textsf{isZ}(b_1) ? \alpha_1: \alpha_2) : \mathds{B} \Rightarrow \mathds{B} \Rightarrow \mathds{B} \Rightarrow S(\mathds{B})$}
 \end{prooftree}
 
 \textsf{R-1}
@@ -125,29 +219,29 @@ Para ello, consideramos las siguientes definiciones:
 \begin{prooftree}
   \AxiomC{}
   \RightLabel{\scriptsize{Ax}}
-  \UnaryInfC{$\Theta \vdash x : \mathds{B}$}
+  \UnaryInfC{$x:\mathds{B} \vdash x : \mathds{B}$}
   \RightLabel{\scriptsize{$\preceq$}}
-  \UnaryInfC{$\Theta \vdash x : S(\mathds{B})$}
+  \UnaryInfC{$x:\mathds{B} \vdash x : S(\mathds{B})$}
   
   \AxiomC{$\vdash \mathsf{not} : \mathds{B} \Rightarrow \mathds{B}$}
   \RightLabel{\scriptsize{$\preceq$}}
   \UnaryInfC{$\vdash \mathsf{not} : S(\mathds{B} \Rightarrow \mathds{B})$}
   
   \RightLabel{\scriptsize{$\Rightarrow_{ES}$}}
-  \BinaryInfC{$\Theta \vdash \textsf{not} \; x : S(\mathds{B})$}
+  \BinaryInfC{$x:\mathds{B} \vdash \textsf{not} \; x : S(\mathds{B})$}
   
   \AxiomC{}
   \RightLabel{\scriptsize{Ax}}
-  \UnaryInfC{$\Theta \vdash x : \mathds{B}$}
+  \UnaryInfC{$x:\mathds{B} \vdash x : \mathds{B}$}
   \RightLabel{\scriptsize{$\preceq$}}
-  \UnaryInfC{$\Theta \vdash x : S(\mathds{B})$}
+  \UnaryInfC{$x:\mathds{B} \vdash x : S(\mathds{B})$}
 
   \RightLabel{\scriptsize{If}}
   \BinaryInfC{$x:\mathds{B} \vdash (\mathsf{isZ} () ? x : \mathsf{not} \; x) : \mathds{B} \Rightarrow S(\mathds{B})$}
   \AxiomC{$$}
   \RightLabel{\scriptsize{Ax}}
   \UnaryInfC{$b_2 : \mathds{B} \vdash b_2 : \mathds{B}$}
-  \BinaryInfC{$\Delta \vdash \alpha_1:S(\mathds{B})$}
+  \BinaryInfC{$b_2:\mathds{B}, x:\mathds{B} \vdash \alpha_1:S(\mathds{B})$}
 \end{prooftree}  
 
 \textsf{R-2}
@@ -155,29 +249,29 @@ Para ello, consideramos las siguientes definiciones:
 \begin{prooftree}
   \AxiomC{}
   \RightLabel{\scriptsize{Ax}}
-  \UnaryInfC{$\Theta \vdash x : \mathds{B}$}
+  \UnaryInfC{$x:\mathds{B} \vdash x : \mathds{B}$}
   
   \AxiomC{$\vdash \mathsf{not} : \mathds{B}$}
   \noLine
   \UnaryInfC{$\Rightarrow \mathds{B}$}
   \RightLabel{\scriptsize{$\Rightarrow_E$}}
-  \BinaryInfC{$\Theta \vdash \mathsf{not} \; x : \mathds{B}$}
+  \BinaryInfC{$x:\mathds{B} \vdash \mathsf{not} \; x : \mathds{B}$}
 
   \AxiomC{$\vdash \mathsf{Z} : \mathds{B}$}
   \noLine
   \UnaryInfC{$\Rightarrow S(\mathds{B})$}
   
   \RightLabel{\scriptsize{$\Rightarrow_E$}}  
-  \BinaryInfC{$\Theta \vdash \mathsf{Z} \; (\textsf{not} \; x) : S(\mathds{B})$}
+  \BinaryInfC{$x:\mathds{B} \vdash \mathsf{Z} \; (\textsf{not} \; x) : S(\mathds{B})$}
   
   \AxiomC{}
   \RightLabel{\scriptsize{Ax}}
-  \UnaryInfC{$\Theta \vdash x : \mathds{B}$}
+  \UnaryInfC{$x:\mathds{B} \vdash x : \mathds{B}$}
   \AxiomC{$\vdash \mathsf{Z} : \mathds{B}$}
   \noLine
   \UnaryInfC{$\Rightarrow S(\mathds{B})$}
   \RightLabel{\scriptsize{$\Rightarrow_E$}}
-  \BinaryInfC{$\Theta \vdash \mathsf{Z} \; x : S(\mathds{B})$}
+  \BinaryInfC{$x:\mathds{B} \vdash \mathsf{Z} \; x : S(\mathds{B})$}
 
   \RightLabel{\scriptsize{$If$}}
   \BinaryInfC{$x:\mathds{B} \vdash (\textsf{isZ} () ? \textsf{Z} \; x : \textsf{Z} \; (\textsf{not}  \; x)) 
@@ -186,11 +280,11 @@ Para ello, consideramos las siguientes definiciones:
   \RightLabel{\scriptsize{$Ax$}}
   \UnaryInfC{$b_2 : \mathds{B} \vdash b_2 : \mathds{B}$}
   \RightLabel{\scriptsize{$\Rightarrow_E$}}
-  \BinaryInfC{$\Delta \vdash \alpha_2:S(\mathds{B})$}
+  \BinaryInfC{$b_2:\mathds{B}, x:\mathds{B} \vdash \alpha_2:S(\mathds{B})$}
 \end{prooftree}
 
-Daremos la derivación de tipos de $\textsf{A}_1 : \mathds{B}^2 \Rightarrow \mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B}$.
-Consideramos las siguientes definiciones:
+Ahora, daremos la derivación de tipos de $\textsf{A}_1 : \mathds{B}^2 \Rightarrow \mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B}$.
+Consideramos las siguientes igualdades:
 
 \begin{itemize}
 \item  $\beta_1 = \textsf{A}_2 \; (head \; b) \; (tail \; b) \; (head \; x)$
@@ -263,89 +357,6 @@ Consideramos las siguientes definiciones:
 
   \RightLabel{\scriptsize{$\Rightarrow_E$}}
   \BinaryInfC{$ b : \mathds{B}^2, w : \mathds{B}^2, x:\mathds{B}^2 \vdash \beta'_1 : S(\mathds{B}) $}
-\end{prooftree}
-
-Daremos la derivación de tipos de $\textsf{Alice} : \mathds{B}^2 \Rightarrow S(\mathds{B}^2) \Rightarrow S(\mathds{B}^2)$.
-
-\begin{prooftree}1
-  \AxiomC{}
-  \RightLabel{\scriptsize{Ax}}
-  \UnaryInfC{$b:\mathds{B}^2 \vdash b:\mathds{B}^2$}
-
-  \AxiomC{$\vdash A_1 : \mathds{B}^2 \Rightarrow \mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B}$}
-  
-  \RightLabel{\scriptsize{$\Rightarrow_E$}}
-  \BinaryInfC{$b:\mathds{B}^2 \vdash A_1 \; b :\mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B}$}
-  \RightLabel{\scriptsize{$\preceq$}}
-  \UnaryInfC{$b:\mathds{B}^2 \vdash A_1 \; b :S(\mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B})$}
-
-  \AxiomC{}
-  \RightLabel{\scriptsize{Ax}}
-  \UnaryInfC{$x:S(\mathds{B}^2) \vdash x:S(\mathds{B}^2)$}
-
-  \RightLabel{\scriptsize{$\Rightarrow_{ES}$}}
-  \BinaryInfC{$b : \mathds{B}^2, x : S(\mathds{B}^2) \vdash \textsf{A}_1 \; b \; x: S(S(\mathds{B})\times \mathds{B})$}
-  \RightLabel{\scriptsize{$\Uparrow_{r}$}}
-  \UnaryInfC{$b : \mathds{B}^2, x : S(\mathds{B}^2) \vdash \Uparrow_r (\textsf{A}_1 \; b \; x)
-  : S(\mathds{B}^2)$}
-  \RightLabel{\scriptsize{$\Rightarrow_{I}$}}
-  \UnaryInfC{$b : \mathds{B}^2 \vdash \lambda x : S(\mathds{B}^2). \; \Uparrow_r (\textsf{A}_1 \; b \; x)
-  : S(\mathds{B}^2) \Rightarrow S(\mathds{B}^2)$}
-  \RightLabel{\scriptsize{$\Rightarrow_{I}$}}
-  \UnaryInfC{$\vdash \lambda b : \mathds{B}^2. \; \lambda x : S(\mathds{B}^2). \; \Uparrow_r (\textsf{A}_1 \; b \; x)
-  : \mathds{B}^2 \Rightarrow S(\mathds{B}^2) \Rightarrow S(\mathds{B}^2)$}
-\end{prooftree}
-
-Veamos la derivación de $\textsf{Bob} : S(\mathds{B}^2) \Rightarrow \mathds{B}^2$.
-
-\begin{prooftree}
-  \AxiomC{$\vdash \textsf{H}_{1} : \mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B} $}
-  \RightLabel{\scriptsize{$\preceq$}}
-  \UnaryInfC{$\vdash \textsf{H}_{1} : S( \mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B})$}
-  \AxiomC{$\textsf{cnot} : \mathds{B}^2 \Rightarrow \mathds{B}^2$}
-  \RightLabel{\scriptsize{$\preceq$}}
-  \UnaryInfC{$\vdash \textsf{cnot} : S(\mathds{B}^2 \Rightarrow \mathds{B}^2)$}
-  \AxiomC{}
-  \RightLabel{\scriptsize{$Ax$}}
-  \UnaryInfC{$\Gamma \vdash x : S(\mathds{B}^2)$}
-  \RightLabel{\scriptsize{$\Rightarrow_{ES}$}}  
-  \BinaryInfC{$\Gamma \vdash \textsf{cnot} \; x : S(\mathds{B}^2)$}
-  \RightLabel{\scriptsize{$\Rightarrow_{ES}$}}  
-  \BinaryInfC{$\Gamma \vdash \textsf{H}_{1} \; (\textsf{cnot} \; x) : S(S(\mathds{B}) \times \mathds{B})$}
-  \RightLabel{\scriptsize{$\Uparrow_{r}$}}
-  \UnaryInfC{$\Gamma \vdash \; \Uparrow_{r} \textsf{H}_{1} \; (\textsf{cnot} \; x) : S(\mathds{B}^2)$}
-  \RightLabel{\scriptsize{$S_{E}$}}
-  \UnaryInfC{$x : S(\mathds{B} \times \mathds{B}) \vdash \pi_{2} \; (\Uparrow_{r} \textsf{H}_{1} \; (\textsf{cnot} \; x)) 
-    : \mathds{B}^2$}
-  \RightLabel{\scriptsize{$\Rightarrow_{I}$}}
-  \UnaryInfC{$\vdash \textsf{Bob} : S(\mathds{B}^2) \Rightarrow \mathds{B}^2$}
-\end{prooftree}
-
-Por último, tenemos la derivación de tipos de $\textsf{CodSuper} : \mathds{B}^2 \Rightarrow \mathds{B}^2$.
-
-\begin{prooftree}
-  \AxiomC{$\vdash \mathsf{Alice} : \mathds{B}^2 \Rightarrow S(\mathds{B}^2) \Rightarrow S(\mathds{B}^2)$}
-  
-  \AxiomC{}
-  \RightLabel{\scriptsize{\textsf{Ax}}}
-  \UnaryInfC{$b : \mathds{B}^2 \vdash b : \mathds{B}^2 $}
-
-  \RightLabel{\scriptsize{$\Rightarrow_{E}$}}    
-  \BinaryInfC{$b : \mathds{B}^2 \vdash \mathsf{Alice} \; b : S(\mathds{B}^2) \Rightarrow S(\mathds{B}^2)$}
- 
-  \AxiomC{$\beta_{00} : S(\mathds{B}^2)$}
-  
-  \RightLabel{\scriptsize{$\Rightarrow_{E}$}}  
-  \BinaryInfC{$b : \mathds{B}^2  \vdash \textsf{Alice} \; b \; \beta_{00} : S(\mathds{B}^2)$}
-  \AxiomC {$\vdash \textsf{Bob} : S(\mathds{B}^2)$}
-  \noLine
-  \UnaryInfC{$\Rightarrow \mathds{B}^2$}
-  \RightLabel{\scriptsize{$\Rightarrow_{E}$}}
-  \BinaryInfC{$ b : \mathds{B}^2 \vdash \textsf{Bob} \; (\textsf{Alice} \; b \; \beta_{00}) 
-    : \mathds{B}^2$}
-  \RightLabel{\scriptsize{$\Rightarrow_{I}$}}      
-  \UnaryInfC{$\vdash \lambda b : \mathds{B}^2. \; \textsf{Bob} \; (\textsf{Alice} \; b \; \beta_{00}) 
-  : \mathds{B}^2 \Rightarrow \mathds{B}^2$}
 \end{prooftree}
 
 \end{document}
