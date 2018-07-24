@@ -67,16 +67,22 @@ El lambda término final es el siguiente:
 Consideramos las siguientes definiciones:
 
 \begin{tabbing}
-  $\textsf{cnot}$ \= $= \lambda x: \mathds{B} \times \mathds{B}. \; ( head \; x) \times (\textsf{isZ}( head \; x) ?
+  $\textsf{cnot}$ \= $=$ \= $\lambda x: \mathds{B}^2. \; ( head \; x) \times (\textsf{isZ} ( head \; x) ?
   (tail \; x) : (\textsf{not} \; (tail \; x)))$ \\
+  \> \> $: \mathds{B}^2 \Rightarrow \mathds{B}^2$ \\
 
-  $\textsf{not}$ \> $= \lambda x: \mathds{B}. \; \textsf{isZ}(x) ? \ket{1} : \ket{0}$ \\
+  $\textsf{not}$ \> $= \lambda x: \mathds{B}. \; \textsf{isZ} (x) ? \ket{1} : \ket{0}$ \\
+  \> \> $: \mathds{B} \Rightarrow \mathds{B}$ \\
+
 
   $\textsf{H}$ \> $= \lambda x : \mathds{B}. \; (\frac{1}{\sqrt{2}}.(\ket{0} + (\textsf{isZ}(x) ? \ket{1} : -\ket{1})))$ \\
+  \> \> $: \mathds{B} \Rightarrow S(\mathds{B})$ \\
 
-  $\textsf{H}_{1}$ \> $= \lambda x : \mathds{B} \times \mathds{B} . \; (\textsf{H} \; (head \; x)) \times (tail \; x)$ \\
+  $\textsf{H}_{1}$ \> $= \lambda x : \mathds{B}^2 . \; (\textsf{H} \; (head \; x)) \times (tail \; x)$ \\
+  \> \> $: \mathds{B}^2 \Rightarrow S(\mathds{B}) \times \mathds{B}$ \\
 
-  $\textsf{Z}$ \> $= \lambda x : \mathds{B}. \; \textsf{isZ}(x) ? \ket{0} : - \ket{1}$
+  $\textsf{Z}$ \> $= \lambda x : \mathds{B}. \; \textsf{isZ}(x) ? \ket{0} : - \ket{1}$ \\
+  \> \> $: \mathds{B} \Rightarrow S(\mathds{B})$ \\
 \end{tabbing}
 
 Daremos la derivación de tipos de $\textsf{A}_2 : \mathds{B} \Rightarrow \mathds{B} \Rightarrow \mathds{B} \Rightarrow S(\mathds{B})$.
